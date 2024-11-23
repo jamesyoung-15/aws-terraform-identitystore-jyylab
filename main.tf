@@ -1,5 +1,5 @@
 provider "aws" {
-  region  = "us-east-1"
+  region = "us-east-1"
   # profile = var.aws_profile
 }
 
@@ -56,6 +56,7 @@ resource "aws_ssoadmin_account_assignment" "account_assignments_admin" {
   principal_id       = aws_identitystore_user.users["Admin"].user_id # Identity store user ID, Only using one user for now
   principal_type     = "USER"
   target_id          = local.admin_acc_id # ID of the organization account
+  target_type        = "AWS_ACCOUNT"
 }
 
 # assign sso for sandbox accounts, attaches permission set and identity store user to an organization account
@@ -68,6 +69,7 @@ resource "aws_ssoadmin_account_assignment" "account_assignments_sandbox" {
   principal_id       = aws_identitystore_user.users["Admin"].user_id # Identity store user ID, Only using one user for now
   principal_type     = "USER"
   target_id          = each.value.id # ID of the organization account
+  target_type        = "AWS_ACCOUNT"
 }
 
 # assign sso for dev accounts, attaches permission set and identity store user to an organization account
@@ -80,6 +82,7 @@ resource "aws_ssoadmin_account_assignment" "account_assignments_dev" {
   principal_id       = aws_identitystore_user.users["Admin"].user_id # Identity store user ID, Only using one user for now
   principal_type     = "USER"
   target_id          = each.value.id # ID of the organization account
+  target_type        = "AWS_ACCOUNT"
 }
 
 # assign sso for test accounts, attaches permission set and identity store user to an organization account
@@ -92,6 +95,7 @@ resource "aws_ssoadmin_account_assignment" "account_assignments_test" {
   principal_id       = aws_identitystore_user.users["Admin"].user_id # Identity store user ID, Only using one user for now
   principal_type     = "USER"
   target_id          = each.value.id # ID of the organization account
+  target_type        = "AWS_ACCOUNT"
 }
 
 # assign sso for prod accounts, attaches permission set and identity store user to an organization account
@@ -104,6 +108,7 @@ resource "aws_ssoadmin_account_assignment" "account_assignments_prod" {
   principal_id       = aws_identitystore_user.users["Admin"].user_id # Identity store user ID, Only using one user for now
   principal_type     = "USER"
   target_id          = each.value.id # ID of the organization account
+  target_type        = "AWS_ACCOUNT"
 }
 
 # assign sso for deployment accounts, attaches permission set and identity store user to an organization account
@@ -116,6 +121,7 @@ resource "aws_ssoadmin_account_assignment" "account_assignments_deployment" {
   principal_id       = aws_identitystore_user.users["Admin"].user_id # Identity store user ID, Only using one user for now
   principal_type     = "USER"
   target_id          = each.value.id # ID of the organization account
+  target_type        = "AWS_ACCOUNT"
 }
 
 # assign sso for backup accounts, attaches permission set and identity store user to an organization account
@@ -128,6 +134,7 @@ resource "aws_ssoadmin_account_assignment" "account_assignments_backup" {
   principal_id       = aws_identitystore_user.users["Admin"].user_id # Identity store user ID, Only using one user for now
   principal_type     = "USER"
   target_id          = each.value.id # ID of the organization account
+  target_type        = "AWS_ACCOUNT"
 }
 
 # Attach Policy to Permission Set
