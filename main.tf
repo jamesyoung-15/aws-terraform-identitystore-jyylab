@@ -53,7 +53,7 @@ resource "aws_ssoadmin_permission_set" "permission_sets" {
 resource "aws_ssoadmin_account_assignment" "account_assignments_admin" {
   instance_arn       = tolist(data.aws_ssoadmin_instances.sso_instance.arns)[0]
   permission_set_arn = aws_ssoadmin_permission_set.admin_permission_set.arn
-  principal_id       = aws_identitystore_user.users["Admin"].id # Identity store user ID, Only using one user for now
+  principal_id       = aws_identitystore_user.users["Admin"].user_id # Identity store user ID, Only using one user for now
   principal_type     = "USER"
   target_id          = local.admin_acc_id # ID of the organization account
 }
@@ -65,7 +65,7 @@ resource "aws_ssoadmin_account_assignment" "account_assignments_sandbox" {
 
   instance_arn       = tolist(data.aws_ssoadmin_instances.sso_instance.arns)[0]
   permission_set_arn = aws_ssoadmin_permission_set.permission_sets[each.key].arn
-  principal_id       = aws_identitystore_user.users["Admin"].id # Identity store user ID, Only using one user for now
+  principal_id       = aws_identitystore_user.users["Admin"].user_id # Identity store user ID, Only using one user for now
   principal_type     = "USER"
   target_id          = each.value.id # ID of the organization account
 }
@@ -77,7 +77,7 @@ resource "aws_ssoadmin_account_assignment" "account_assignments_dev" {
 
   instance_arn       = tolist(data.aws_ssoadmin_instances.sso_instance.arns)[0]
   permission_set_arn = aws_ssoadmin_permission_set.permission_sets[each.key].arn
-  principal_id       = aws_identitystore_user.users["Admin"].id # Identity store user ID, Only using one user for now
+  principal_id       = aws_identitystore_user.users["Admin"].user_id # Identity store user ID, Only using one user for now
   principal_type     = "USER"
   target_id          = each.value.id # ID of the organization account
 }
@@ -89,7 +89,7 @@ resource "aws_ssoadmin_account_assignment" "account_assignments_test" {
 
   instance_arn       = tolist(data.aws_ssoadmin_instances.sso_instance.arns)[0]
   permission_set_arn = aws_ssoadmin_permission_set.permission_sets[each.key].arn
-  principal_id       = aws_identitystore_user.users["Admin"].id # Identity store user ID, Only using one user for now
+  principal_id       = aws_identitystore_user.users["Admin"].user_id # Identity store user ID, Only using one user for now
   principal_type     = "USER"
   target_id          = each.value.id # ID of the organization account
 }
@@ -101,7 +101,7 @@ resource "aws_ssoadmin_account_assignment" "account_assignments_prod" {
 
   instance_arn       = tolist(data.aws_ssoadmin_instances.sso_instance.arns)[0]
   permission_set_arn = aws_ssoadmin_permission_set.permission_sets[each.key].arn
-  principal_id       = aws_identitystore_user.users["Admin"].id # Identity store user ID, Only using one user for now
+  principal_id       = aws_identitystore_user.users["Admin"].user_id # Identity store user ID, Only using one user for now
   principal_type     = "USER"
   target_id          = each.value.id # ID of the organization account
 }
@@ -113,7 +113,7 @@ resource "aws_ssoadmin_account_assignment" "account_assignments_deployment" {
 
   instance_arn       = tolist(data.aws_ssoadmin_instances.sso_instance.arns)[0]
   permission_set_arn = aws_ssoadmin_permission_set.permission_sets[each.key].arn
-  principal_id       = aws_identitystore_user.users["Admin"].id # Identity store user ID, Only using one user for now
+  principal_id       = aws_identitystore_user.users["Admin"].user_id # Identity store user ID, Only using one user for now
   principal_type     = "USER"
   target_id          = each.value.id # ID of the organization account
 }
@@ -125,7 +125,7 @@ resource "aws_ssoadmin_account_assignment" "account_assignments_backup" {
 
   instance_arn       = tolist(data.aws_ssoadmin_instances.sso_instance.arns)[0]
   permission_set_arn = aws_ssoadmin_permission_set.permission_sets[each.key].arn
-  principal_id       = aws_identitystore_user.users["Admin"].id # Identity store user ID, Only using one user for now
+  principal_id       = aws_identitystore_user.users["Admin"].user_id # Identity store user ID, Only using one user for now
   principal_type     = "USER"
   target_id          = each.value.id # ID of the organization account
 }
