@@ -229,6 +229,17 @@ resource "aws_ssoadmin_managed_policy_attachment" "deployment_cloudformation_pol
   managed_policy_arn = "arn:aws:iam::aws:policy/AWSCloudFormationFullAccess"
   permission_set_arn = aws_ssoadmin_permission_set.permission_sets[each.key].arn
 }
+resource "aws_ssoadmin_managed_policy_attachment" "deployment_describeorg_policy" {
+  depends_on = [aws_ssoadmin_account_assignment.account_assignments_deployment]
+
+  for_each = { for acc_name, acc_info in local.all_org_accounts : acc_name => acc_info
+  if strcontains(lower(acc_name), "deployment") }
+
+  instance_arn       = tolist(data.aws_ssoadmin_instances.sso_instance.arns)[0]
+  managed_policy_arn = "arn:aws:iam::aws:policy/AWSOrganizationsReadOnlyAccess"
+  permission_set_arn = aws_ssoadmin_permission_set.permission_sets[each.key].arn
+}
+
 
 # Backup Policy
 resource "aws_ssoadmin_managed_policy_attachment" "backup_awsbackup_policy" {
