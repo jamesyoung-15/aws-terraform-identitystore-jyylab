@@ -178,7 +178,7 @@ resource "aws_ssoadmin_managed_policy_attachment" "test_policy" {
   depends_on = [aws_ssoadmin_account_assignment.account_assignments_test]
 
   for_each = { for acc_name, acc_info in local.all_org_accounts : acc_name => acc_info
-  if strcontains(lower(acc_name), "dev") }
+  if strcontains(lower(acc_name), "test") }
 
   instance_arn       = tolist(data.aws_ssoadmin_instances.sso_instance.arns)[0]
   managed_policy_arn = "arn:aws:iam::aws:policy/PowerUserAccess"
@@ -191,7 +191,7 @@ resource "aws_ssoadmin_managed_policy_attachment" "prod_policy" {
   depends_on = [aws_ssoadmin_account_assignment.account_assignments_prod]
 
   for_each = { for acc_name, acc_info in local.all_org_accounts : acc_name => acc_info
-  if strcontains(lower(acc_name), "dev") }
+  if strcontains(lower(acc_name), "prod") }
 
   instance_arn       = tolist(data.aws_ssoadmin_instances.sso_instance.arns)[0]
   managed_policy_arn = "arn:aws:iam::aws:policy/PowerUserAccess"
@@ -206,7 +206,7 @@ resource "aws_ssoadmin_managed_policy_attachment" "deployment_sysadmin_policy" {
   if strcontains(lower(acc_name), "deployment") }
 
   instance_arn       = tolist(data.aws_ssoadmin_instances.sso_instance.arns)[0]
-  managed_policy_arn = "arn:aws:iam::aws:policy/SystemAdministrator"
+  managed_policy_arn = "arn:aws:iam::aws:policy/job-function/SystemAdministrator"
   permission_set_arn = aws_ssoadmin_permission_set.permission_sets[each.key].arn
 }
 resource "aws_ssoadmin_managed_policy_attachment" "deployment_dynamodb_policy" {
@@ -226,7 +226,7 @@ resource "aws_ssoadmin_managed_policy_attachment" "deployment_cloudformation_pol
   if strcontains(lower(acc_name), "deployment") }
 
   instance_arn       = tolist(data.aws_ssoadmin_instances.sso_instance.arns)[0]
-  managed_policy_arn = "arn:aws:iam::aws:policy/CloudFormationFullAccess"
+  managed_policy_arn = "arn:aws:iam::aws:policy/AWSCloudFormationFullAccess"
   permission_set_arn = aws_ssoadmin_permission_set.permission_sets[each.key].arn
 }
 
